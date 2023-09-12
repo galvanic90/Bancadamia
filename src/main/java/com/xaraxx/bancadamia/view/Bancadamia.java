@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.xaraxx.bancadamia;
+package view;
 
 /**
  *
- * @author xaraxx
+ * @author ricar
  */
 public class Bancadamia {
 
