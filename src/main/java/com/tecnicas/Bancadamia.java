@@ -13,17 +13,8 @@ import com.tecnicas.model.CorrientAccount;
  * @author ricar
  */
 public class Bancadamia {
-
+    
     public static void main(String[] args) {
-        static final wellcome = """
-  ____          _   _  _____          _____          __  __ _____          
- |  _ \   /\   | \ | |/ ____|   /\   |  __ \   /\   |  \/  |_   _|   /\    
- | |_) | /  \  |  \| | |       /  \  | |  | | /  \  | \  / | | |    /  \   
- |  _ < / /\ \ | . ` | |      / /\ \ | |  | |/ /\ \ | |\/| | | |   / /\ \  
- | |_) / ____ \| |\  | |____ / ____ \| |__| / ____ \| |  | |_| |_ / ____ \ 
- |____/_/    \_\_| \_|\_____/_/    \_\_____/_/    \_\_|  |_|_____/_/    \_\                                                                                                                                                   
-""";
-
         
         System.out.println("Hello World!");
         System.out.println("Se comprueba que ID este funcinando");
