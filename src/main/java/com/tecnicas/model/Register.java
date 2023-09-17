@@ -4,6 +4,7 @@
  */
 package com.tecnicas.model;
 
+import com.tecnicas.control.Transaction;
 import java.util.Date;
 
 /**
@@ -11,67 +12,49 @@ import java.util.Date;
  * @author ricar
  */
 public class Register {
-    private static int trasanctionId = 0;
-    private Date transactionDate; 
+    private static int transactionId = 0;
+    private Date date; 
     private String city;
-    private String transactionType;
+    private Transaction type;
     private float amount;
     private CorrientAccount account;
 
-    public Register(Date transactionDate, String city, String transactionType, float amount, CorrientAccount account) {
-        this.transactionDate = transactionDate;
+    public Register(Date date, String city, Transaction type, float amount, CorrientAccount account) {
+        this.date = date;
         this.city = city;
-        this.transactionType = transactionType;
+        this.type = type;
         this.amount = amount;
         this.account = account;
     }
-
-    public static int getTrasanctionId() {
-        return trasanctionId;
+    
+    private static void addTransactionId(){
+        Register.transactionId += 1; 
+    }
+    
+    public static int getTransactionId() {
+        return transactionId;
     }
 
-    private static void setTrasanctionId(int trasanctionId) {
-        Register.trasanctionId += 1;
-    }
-
-    public Date getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(Date transactionDate) {
-        this.transactionDate = transactionDate;
+    public Date getDate() {
+        return date;
     }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getTransactionType() {
-        return transactionType;
-    }
-
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
+    public Transaction getType() {
+        return type;
     }
 
     public float getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
     public CorrientAccount getAccount() {
         return account;
     }
 
-    public void setAccount(CorrientAccount account) {
-        this.account = account;
-    }
+    
     
 }
