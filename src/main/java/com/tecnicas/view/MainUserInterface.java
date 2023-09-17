@@ -8,13 +8,17 @@ package com.tecnicas.view;
  *
  * @author xaraxx
  */
-public class MainUserInterface {
-/*    static final wellcome = """
-  ____          _   _  _____          _____          __  __ _____          
- |  _ \   /\   | \ | |/ ____|   /\   |  __ \   /\   |  \/  |_   _|   /\    
- | |_) | /  \  |  \| | |       /  \  | |  | | /  \  | \  / | | |    /  \   
- |  _ < / /\ \ | . ` | |      / /\ \ | |  | |/ /\ \ | |\/| | | |   / /\ \  
- | |_) / ____ \| |\  | |____ / ____ \| |__| / ____ \| |  | |_| |_ / ____ \ 
- |____/_/    \_\_| \_|\_____/_/    \_\_____/_/    \_\_|  |_|_____/_/    \_\                                                                                                                                                   
-""";*/
+public class MainUserInterface {   
+    public static void mainUI(){
+        StringBuilder multilineBuilder = new StringBuilder();
+        multilineBuilder.append(" ____          _   _  _____          _____          __  __ _____\n");    
+        multilineBuilder.append("|  _ \\   /\\   | \\ | |/ ____|   /\\   |  __ \\   /\\   |  \\/  |_   _|   /\\ \n");   
+        multilineBuilder.append("| |_) | /  \\  |  \\| | |       /  \\  | |  | | /  \\  | \\  / | | |    /  \\ \n"); 
+        multilineBuilder.append("|  _ < / /\\ \\ | . ` | |      / /\\ \\ | |  | |/ /\\ \\ | |\\/| | | |   / /\\ \\ \n ");  
+        multilineBuilder.append("| |_) / ____ \\| |\\  | |____ / ____ \\| |__| / ____ \\| |  | |_| |_ / ____ \\ \n");
+        multilineBuilder.append("|____/_/    \\_\\_| \\_|\\_____/_/    \\_\\_____/_/    \\_\\_|  |_|_____/_/    \\_\\ \n");
+        
+        System.out.println("Bienvenidos a");
+        System.out.println(multilineBuilder);
+    }
 }
