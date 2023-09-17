@@ -5,7 +5,7 @@
 package com.tecnicas.model;
 import com.tecnicas.control.Validator;
 import java.util.ArrayList;
-
+import java.util.Date;
 /**
  *
  * @author ricar
@@ -15,17 +15,23 @@ public class CorrientAccount {
     private float balance=0;
     private float maxAmountPerTrans=500000;
     private float overdraft=50000;
-    private final float MAXOVERDRAFT=this.overdraft;
+    private float maxOverdraft=this.overdraft;
     private int maxTransactions=3;
+    private int transactions=0;
     private ArrayList<Register> registers = new ArrayList();
 
     public CorrientAccount() {
         addAccount();
     }
     
-    public CorrientAccount(float balance) {
-        this.balance = balance;
-        addAccount();
+    public CorrientAccount(float balance) throws InstantiationException {
+        
+        if (Validator.isNoNegativo(balance)){
+            this.balance = balance;
+            addAccount();
+        }
+        
+        throw new InstantiationException("Se intento inicializar una instancia con saldo negativo");
     }
     
     private static void addAccount() {
@@ -36,13 +42,29 @@ public class CorrientAccount {
         return ID;
     }
     
+    private boolean transaction(){
+        if (maxTransactions>transactions){
+            transactions+=1;
+            return true;
+        }else if (maxTransactions==transactions){
+            return false;
+            //Falta organizar lo del dia.
+            //transactions=0;
+        }
+        return false;
+    }
+    
     public void deposit(float amount){
         if(Validator.isNoNegativo(amount)){
-            if (MAXOVERDRAFT>overdraft){
-                amount-=(MAXOVERDRAFT-overdraft);
-                overdraft=MAXOVERDRAFT;
+            if (maxOverdraft>overdraft){
+                amount-=(maxOverdraft-overdraft);
+                overdraft=maxOverdraft;
             }
-            this.balance+=amount;
+            if(transaction()){
+                this.balance+=amount;
+            }else{
+                System.out.println("Se han cumplido con las transacciones por dia");
+            }
         }else{
             System.out.println("El deposito no se pudo realizar");
         }
@@ -51,10 +73,19 @@ public class CorrientAccount {
     public void withdrawal(float amount){
        if (Validator.isAbove(this.maxAmountPerTrans, amount) && Validator.isNoNegativo(amount)){
            if (Validator.hasAmount(this.balance, amount)){
-               this.balance-=amount;
+                if(transaction()){
+                    this.balance-=amount;
+                }else{
+                    System.out.println("Se han cumplido con las transacciones por dia");
+                }
            } else if(Validator.hasAmount(this.balance+this.overdraft, amount)){
-               this.overdraft-=(amount-this.balance);
-               this.balance=0;
+                if (transaction()){
+                    this.overdraft-=(amount-this.balance);
+                    this.balance=0;
+                }else{
+                    System.out.println("Se han cumplido con las transacciones por dia");
+                }
+             
            } else{
                System.out.println("No se cuenta con el saldo suficiente para hacer el retiro");
            }
@@ -65,6 +96,14 @@ public class CorrientAccount {
 
     private void saveRegister( String city){
         //TODO implementar
+    }
+
+    public float getMaxOverdraft() {
+        return maxOverdraft;
+    }
+
+    public int getTransactions() {
+        return transactions;
     }
     
     public float getBalance() {
@@ -87,12 +126,12 @@ public class CorrientAccount {
         return registers;
     }
     
-    public Register getRegister(int id){
+    /*public Register getRegister(int id){
         
         //TODO implementar
         
         return new Register();
-    }
+    }*/
 
     public void setMaxAmountPerTrans(float maxAmountPerTrans) {
         this.maxAmountPerTrans = maxAmountPerTrans;
@@ -106,4 +145,11 @@ public class CorrientAccount {
         this.maxTransactions = maxTransactions;
     }
 
+    @Override
+    public String toString() {
+        return "CorrientAccount{" + "balance=" + balance + ", maxAmountPerTrans=" + maxAmountPerTrans + ", overdraft=" + overdraft + ", transactions=" + transactions + '}';
+    }
+    
+    
+    
 }
