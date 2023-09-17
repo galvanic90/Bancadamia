@@ -7,6 +7,7 @@ package com.tecnicas;
 
 
 import com.tecnicas.model.CorrientAccount;
+import com.tecnicas.view.MainUserInterface;
 
 /**
  *
@@ -15,8 +16,7 @@ import com.tecnicas.model.CorrientAccount;
 public class Bancadamia {
     
     public static void main(String[] args) {
-        
-        System.out.println("Hello World!");
+        MainUserInterface.mainUI();
         System.out.println("Se comprueba que ID este funcinando");
         System.out.println(CorrientAccount.getID());
         CorrientAccount primera= new CorrientAccount();
