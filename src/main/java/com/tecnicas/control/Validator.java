@@ -21,7 +21,13 @@ public abstract class Validator {
         return amount >= 0;
     }
     
+    public static boolean hasAmount(float available, float amountWithdraw){
+        return available>=amountWithdraw;
+    }
     
+    public static boolean isAbove(float max, float amount){
+        return max>=amount;
+    }
     
     
 }
