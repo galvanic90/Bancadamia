@@ -126,12 +126,12 @@ public class CorrientAccount {
         return registers;
     }
     
-    public Register getRegister(int id){
+    /*public Register getRegister(int id){
         
         //TODO implementar
         
         return new Register();
-    }
+    }*/
 
     public void setMaxAmountPerTrans(float maxAmountPerTrans) {
         this.maxAmountPerTrans = maxAmountPerTrans;
