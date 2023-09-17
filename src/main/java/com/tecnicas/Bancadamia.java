@@ -13,8 +13,10 @@ import com.tecnicas.model.CorrientAccount;
  * @author ricar
  */
 public class Bancadamia {
-
+    
     public static void main(String[] args) {
+        
+        System.out.println("Hello World!");
         System.out.println("Se comprueba que ID este funcinando");
         System.out.println(CorrientAccount.getID());
         CorrientAccount primera= new CorrientAccount();
