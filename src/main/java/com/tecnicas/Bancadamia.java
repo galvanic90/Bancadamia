@@ -1,23 +1,14 @@
 package com.tecnicas;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
-
-
-import com.tecnicas.control.Transaction;
 import com.tecnicas.model.CorrientAccount;
-import com.tecnicas.model.Register;
 import com.tecnicas.view.MainUserInterface;
-import java.util.Date;
-
 /**
  *
  * @author ricar
  */
 public class Bancadamia {
-    
     public static void main(String[] args) {
         MainUserInterface.mainUI();
         System.out.println("Se comprueba que ID este funcinando");
@@ -71,12 +62,8 @@ public class Bancadamia {
         primera.deposit(40000);
         System.out.println(primera);
         
-        Date date=new Date();
-        Register primeregistro=new Register(date,"medellin",Transaction.DEPOSIT, 4000, primera);
-        Register segundregistro=new Register(date,"medellin",Transaction.WITHDRAWAL, 8000, primera);
-        primera.saveRegister(primeregistro);
-        primera.saveRegister(segundregistro);
-    //    System.out.println(primera.getRegisters());
+       
+        System.out.println(primera.getRegisters());
          
     }
 }
