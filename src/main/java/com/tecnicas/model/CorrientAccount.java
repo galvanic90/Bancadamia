@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tecnicas.model;
+import com.google.gson.reflect.TypeToken;
 import com.tecnicas.control.Transaction;
 import com.tecnicas.control.Validator;
 import com.tecnicas.help.PersistenceHelper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,11 +26,18 @@ public class CorrientAccount {
     private float maxOverdraft=this.overdraft;
     private int maxTransactions=3;
     private int transactions=0;
-    private final ArrayList<Register> registers = new ArrayList();
+    private ArrayList<Register> registers = new ArrayList();
+    
+    
+    static final String CORRIENT_ACCOUNT_FILE = "corrient-account.json";
     static final String TRANSACTION_REGISTER_FILE = "transaction-register.json";
     
     PersistenceHelper persistence = new PersistenceHelper();
     
+    public ArrayList registerTransactionOp(ArrayList<Register> registers){
+        return this.registers = registers;
+    }
+            
     public CorrientAccount() {
         addAccount();
         this.id=ID;
@@ -138,9 +147,10 @@ public class CorrientAccount {
     //metodos depositar y retirar
     private void saveRegister( Register register){
         this.registers.add(register);
-        persistence.save(register, TRANSACTION_REGISTER_FILE);
+        persistence.save(registers, TRANSACTION_REGISTER_FILE);
     }
     
+
     //public ArrayList<Register> showRegisters(Date initialdate, Date finaldate){
     //    for (Register registro : registers) {
     //        registro.getDate().;
@@ -172,7 +182,13 @@ public class CorrientAccount {
     }
     
     public ArrayList<Register> getRegisters() {
+        registers = loadTransactionsRegistered();
         return registers;
+    }
+    
+        
+    public ArrayList<Register> loadTransactionsRegistered(){
+        return registers = persistence.load(TRANSACTION_REGISTER_FILE, new TypeToken<ArrayList<Register>>() {}.getType());
     }
     
     /*public Register getRegister(int id){
