@@ -12,18 +12,22 @@ import com.tecnicas.control.Transaction;
  */
 public class Register {
     private static int transactionId = 0;
-    private String date; 
-    private String city;
-    private Transaction type;
-    private float amount;
-    private int accountId;
+    private int id;
+    private final String date; 
+    private final String city;
+    private final Transaction type;
+    private final float amount;
+    private final int accountId;
 
     public Register(String date, String city, Transaction type, float amount, int accountId) {
+        addTransactionId();
         this.date = date;
         this.city = city;
         this.type = type;
         this.amount = amount;
         this.accountId = accountId;
+        this.id=transactionId;
+       
     }
     
     private static void addTransactionId(){
@@ -59,7 +63,7 @@ public class Register {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Register{");
-        sb.append("transactionId=").append(Integer.toString(transactionId));
+        sb.append("transactionId=").append(Integer.toString(id));
         sb.append(", date=").append(date);
         sb.append(", city=").append(city);
         sb.append(", type=").append(type);
