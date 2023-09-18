@@ -9,6 +9,7 @@ import com.tecnicas.help.PersistenceHelper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,7 +25,7 @@ public class CorrientAccount {
     private float maxOverdraft=this.overdraft;
     private int maxTransactions=3;
     private int transactions=0;
-    private final ArrayList<Register> registers = new ArrayList();
+    private ArrayList<Register> registers = new ArrayList();
     
     
     static final String CORRIENT_ACCOUNT_FILE = "corrient-account.json";
@@ -32,6 +33,10 @@ public class CorrientAccount {
     
     PersistenceHelper persistence = new PersistenceHelper();
     
+    public ArrayList registerTransactionOp(ArrayList<Register> registers){
+        return this.registers = registers;
+    }
+            
     public CorrientAccount() {
         addAccount();
         this.id=ID;
@@ -141,7 +146,7 @@ public class CorrientAccount {
     //metodos depositar y retirar
     private void saveRegister( Register register){
         this.registers.add(register);
-        persistence.save(register, TRANSACTION_REGISTER_FILE);
+        persistence.save(registers, TRANSACTION_REGISTER_FILE);
     }
     
     //public ArrayList<Register> showRegisters(Date initialdate, Date finaldate){
