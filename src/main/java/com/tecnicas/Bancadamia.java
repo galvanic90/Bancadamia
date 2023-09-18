@@ -3,11 +3,9 @@ package com.tecnicas;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 import com.tecnicas.control.TypePerson;
-import com.tecnicas.help.PersistenceHelper;
 import com.tecnicas.model.Client;
 import com.tecnicas.model.CorrientAccount;
 import com.tecnicas.view.MainUserInterface;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,19 +14,7 @@ import java.util.logging.Logger;
  * @author ricar
  */
 public class Bancadamia {
-    
-    public ArrayList<Client> clients= new ArrayList();
-    static final String CLIENT_FILE = "clients.json";
-    PersistenceHelper persistence = new PersistenceHelper();
-    
-    
-    
-    private void saveClient( Client client){
-        this.clients.add(client);
-        persistence.save(clients, CLIENT_FILE);
-    }
-    
-    public void main(String[] args) {
+    public static void main(String[] args) {
         String fullname;
         float balance=0;
         Scanner scanner = new Scanner(System.in);
@@ -40,9 +26,6 @@ public class Bancadamia {
         }while(fullname.equals(""));
        
         Client client = new Client(fullname, TypePerson.NATURAL);
-        saveClient(client);
-        
-        
         do{
             System.out.print("Introduzca el dinero con el cual quiere abrir su cuenta: ");
             balance = scanner.nextFloat();  

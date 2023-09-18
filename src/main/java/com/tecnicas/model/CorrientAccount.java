@@ -27,9 +27,6 @@ public class CorrientAccount {
     private int maxTransactions=3;
     private int transactions=0;
     private ArrayList<Register> registers = new ArrayList();
-    
-    
-    static final String CORRIENT_ACCOUNT_FILE = "corrient-account.json";
     static final String TRANSACTION_REGISTER_FILE = "transaction-register.json";
     
     PersistenceHelper persistence = new PersistenceHelper();
@@ -49,9 +46,9 @@ public class CorrientAccount {
             addAccount();
             this.balance = balance;
             this.id=ID;
+        }else{
+            throw new InstantiationException("Se intento inicializar una instancia con saldo negativo");
         }
-        
-        throw new InstantiationException("Se intento inicializar una instancia con saldo negativo");
     }
     
     private static void addAccount() {
@@ -201,8 +198,10 @@ public class CorrientAccount {
     public void setMaxAmountPerTrans(float maxAmountPerTrans) {
         if(Validator.isNoNegativo(maxAmountPerTrans)){
             this.maxAmountPerTrans = maxAmountPerTrans;
+        }else{
+            throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
         }
-        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
+        
     }
 
     public void setOverdraft(float overdraft) {
@@ -212,15 +211,19 @@ public class CorrientAccount {
             if(overdraft>maxOverdraft){
                 this.maxOverdraft=overdraft;
             }
+        }else{
+            throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
         }
-        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
+        
     }
 
     public void setMaxTransactions(int maxTransactions) {
         if (Validator.isNoNegativo(maxTransactions)){
             this.maxTransactions = maxTransactions;
+        }else{
+            throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
         }
-        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
+        
     }
 
     @Override
