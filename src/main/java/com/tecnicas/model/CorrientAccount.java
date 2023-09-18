@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tecnicas.model;
+import com.tecnicas.control.Transaction;
 import com.tecnicas.control.Validator;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class CorrientAccount {
     private float maxOverdraft=this.overdraft;
     private int maxTransactions=3;
     private int transactions=0;
-    private ArrayList<Register> registers = new ArrayList();
+    private final ArrayList<Register> registers = new ArrayList();
 
     public CorrientAccount() {
         addAccount();
@@ -55,13 +56,21 @@ public class CorrientAccount {
     }
     
     public void deposit(float amount){
+        
+        Date date=new Date();
         if(Validator.isNoNegativo(amount)){
-            if (maxOverdraft>overdraft){
+            if(transaction()){
+                
+                Register register = new Register(date, "medellín", Transaction.DEPOSIT, amount,this);
+                this.saveRegister(register);
+                
+                if (maxOverdraft>overdraft){
                 amount-=(maxOverdraft-overdraft);
                 overdraft=maxOverdraft;
-            }
-            if(transaction()){
+                }
+                
                 this.balance+=amount;
+                
             }else{
                 System.out.println("Se han cumplido con las transacciones por dia");
             }
@@ -71,17 +80,25 @@ public class CorrientAccount {
     }
     
     public void withdrawal(float amount){
+        
+       Date date=new Date();
        if (Validator.isAbove(this.maxAmountPerTrans, amount) && Validator.isNoNegativo(amount)){
+           
            if (Validator.hasAmount(this.balance, amount)){
                 if(transaction()){
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this);
+                    this.saveRegister(register);
                     this.balance-=amount;
                 }else{
                     System.out.println("Se han cumplido con las transacciones por dia");
                 }
            } else if(Validator.hasAmount(this.balance+this.overdraft, amount)){
                 if (transaction()){
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this);
+                    this.saveRegister(register);
                     this.overdraft-=(amount-this.balance);
                     this.balance=0;
+                    
                 }else{
                     System.out.println("Se han cumplido con las transacciones por dia");
                 }
@@ -96,7 +113,7 @@ public class CorrientAccount {
 
     //Deberia ser privada porque esto se define dentro de los
     //metodos depositar y retirar
-    public void saveRegister( Register register){
+    private void saveRegister( Register register){
         this.registers.add(register);
     }
     
@@ -142,15 +159,28 @@ public class CorrientAccount {
     }*/
 
     public void setMaxAmountPerTrans(float maxAmountPerTrans) {
-        this.maxAmountPerTrans = maxAmountPerTrans;
+        if(Validator.isNoNegativo(maxAmountPerTrans)){
+            this.maxAmountPerTrans = maxAmountPerTrans;
+        }
+        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
     }
 
     public void setOverdraft(float overdraft) {
-        this.overdraft = overdraft;
+        if(Validator.isNoNegativo(overdraft)){
+            this.overdraft = overdraft;
+            
+            if(overdraft>maxOverdraft){
+                this.maxOverdraft=overdraft;
+            }
+        }
+        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
     }
 
     public void setMaxTransactions(int maxTransactions) {
-        this.maxTransactions = maxTransactions;
+        if (Validator.isNoNegativo(maxTransactions)){
+            this.maxTransactions = maxTransactions;
+        }
+        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
     }
 
     @Override
