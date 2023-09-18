@@ -25,9 +25,6 @@ public class CorrientAccount {
     private int maxTransactions=3;
     private int transactions=0;
     private final ArrayList<Register> registers = new ArrayList();
-    
-    
-    static final String CORRIENT_ACCOUNT_FILE = "corrient-account.json";
     static final String TRANSACTION_REGISTER_FILE = "transaction-register.json";
     
     PersistenceHelper persistence = new PersistenceHelper();

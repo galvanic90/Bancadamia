@@ -18,7 +18,7 @@ public class Person {
         this.fullName = fullName;
         this.type = type;
     }
-
+    
     public String getFullName() {
         return fullName;
     }

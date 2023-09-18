@@ -5,6 +5,7 @@
 package com.tecnicas.model;
 
 import com.tecnicas.control.TypePerson;
+import com.tecnicas.help.PersistenceHelper;
 import java.util.ArrayList;
 /**
  *
@@ -12,12 +13,19 @@ import java.util.ArrayList;
  */
 public class Client extends Person {
     static int ID=0;
-    public ArrayList<CorrientAccount> accounts;
-
+    public ArrayList<CorrientAccount> accounts=new ArrayList();
+    static final String CORRIENT_ACCOUNT_FILE = "corrient-account.json";
+    PersistenceHelper persistence = new PersistenceHelper();
+    
     public Client(String fullName, TypePerson type) {
         super(fullName, type);
     }
-
+    
+    private void saveAccount( CorrientAccount account){
+        this.accounts.add(account);
+        persistence.save(account, CORRIENT_ACCOUNT_FILE);
+    }
+    
     public static int getID() {
         return ID;
     }
