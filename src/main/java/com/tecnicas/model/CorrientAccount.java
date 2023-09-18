@@ -187,7 +187,7 @@ public class CorrientAccount {
     }
     
         
-    private ArrayList<Register> loadTransactionsRegistered(){
+    public ArrayList<Register> loadTransactionsRegistered(){
         return registers = persistence.load(TRANSACTION_REGISTER_FILE, new TypeToken<ArrayList<Register>>() {}.getType());
     }
     
