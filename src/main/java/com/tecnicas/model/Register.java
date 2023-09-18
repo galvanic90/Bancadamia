@@ -57,7 +57,16 @@ public class Register {
 
     @Override
     public String toString() {
-        return "Register{" + "date=" + date + ", city=" + city + ", type=" + type + ", amount=" + amount + ", account=" + account + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Register{");
+        sb.append("transactionId").append(transactionId);
+        sb.append(", date=").append(date);
+        sb.append(", city=").append(city);
+        sb.append(", type=").append(type);
+        sb.append(", amount=").append(amount);
+        sb.append(", account=").append(account);
+        sb.append('}');
+        return  sb.toString();
     }
 
     
