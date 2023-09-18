@@ -5,7 +5,6 @@
 package com.tecnicas.model;
 
 import com.tecnicas.control.Transaction;
-import java.util.Date;
 
 /**
  *
@@ -13,18 +12,18 @@ import java.util.Date;
  */
 public class Register {
     private static int transactionId = 0;
-    private Date date; 
+    private String date; 
     private String city;
     private Transaction type;
     private float amount;
-    private CorrientAccount account;
+    private int accountId;
 
-    public Register(Date date, String city, Transaction type, float amount, CorrientAccount account) {
+    public Register(String date, String city, Transaction type, float amount, int accountId) {
         this.date = date;
         this.city = city;
         this.type = type;
         this.amount = amount;
-        this.account = account;
+        this.accountId = accountId;
     }
     
     private static void addTransactionId(){
@@ -35,7 +34,7 @@ public class Register {
         return transactionId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -51,21 +50,22 @@ public class Register {
         return amount;
     }
 
-    public CorrientAccount getAccount() {
-        return account;
+    public int getAccountID() {
+        return accountId;
     }
 
     @Override
     public String toString() {
+
         StringBuilder sb = new StringBuilder();
         sb.append("Register{");
-        sb.append("transactionId").append(transactionId);
+        sb.append("transactionId=").append(Integer.toString(transactionId));
         sb.append(", date=").append(date);
         sb.append(", city=").append(city);
         sb.append(", type=").append(type);
-        sb.append(", amount=").append(amount);
-        sb.append(", account=").append(account);
-        sb.append('}');
+        sb.append(", amount=").append(Float.toString(amount));
+        sb.append(", accountId=").append(accountId);
+        sb.append("}");
         return  sb.toString();
     }
 

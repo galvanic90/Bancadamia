@@ -5,8 +5,10 @@
 package com.tecnicas.model;
 import com.tecnicas.control.Transaction;
 import com.tecnicas.control.Validator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+
 /**
  *
  * @author ricar
@@ -55,13 +57,23 @@ public class CorrientAccount {
         return false;
     }
     
+    private String dateToString(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = now.format(formatter);
+        
+        return formattedDate;
+    }
+    
     public void deposit(float amount){
         
-        Date date=new Date();
+        String date = dateToString();
+        
         if(Validator.isNoNegativo(amount)){
             if(transaction()){
                 
-                Register register = new Register(date, "medellín", Transaction.DEPOSIT, amount,this);
+                Register register = new Register(date, "medellín", Transaction.DEPOSIT, amount,this.ID);
+                System.out.println(register);
                 this.saveRegister(register);
                 
                 if (maxOverdraft>overdraft){
@@ -79,14 +91,15 @@ public class CorrientAccount {
         }
     }
     
+    
     public void withdrawal(float amount){
         
-       Date date=new Date();
+       String date = dateToString();
        if (Validator.isAbove(this.maxAmountPerTrans, amount) && Validator.isNoNegativo(amount)){
            
            if (Validator.hasAmount(this.balance, amount)){
                 if(transaction()){
-                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this);
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.ID);
                     this.saveRegister(register);
                     this.balance-=amount;
                 }else{
@@ -94,7 +107,8 @@ public class CorrientAccount {
                 }
            } else if(Validator.hasAmount(this.balance+this.overdraft, amount)){
                 if (transaction()){
-                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this);
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.ID);
+                    System.out.println(register);
                     this.saveRegister(register);
                     this.overdraft-=(amount-this.balance);
                     this.balance=0;
@@ -148,6 +162,7 @@ public class CorrientAccount {
     }
     
     public ArrayList<Register> getRegisters() {
+        System.out.println(registers);
         return registers;
     }
     
@@ -187,12 +202,12 @@ public class CorrientAccount {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("CorrientAccount{");
-        sb.append("balance=").append(balance);
-        sb.append(", maxAmountPerTrans=").append(maxAmountPerTrans);
-        sb.append(", overdraft=").append(overdraft);
-        sb.append(", maxOverdraft=").append(maxOverdraft);
-        sb.append(", maxTransactions=").append(maxTransactions);
-        sb.append(", transactions=").append(transactions);
+        sb.append("balance=").append(Float.toString(balance));
+        sb.append(", maxAmountPerTrans=").append(Float.toString(maxAmountPerTrans));
+        sb.append(", overdraft=").append(Float.toString(overdraft));
+        sb.append(", maxOverdraft=").append(Float.toString(maxOverdraft));
+        sb.append(", maxTransactions=").append(Integer.toString(maxTransactions));
+        sb.append(", transactions=").append(Integer.toString(transactions));
         sb.append(", registers=").append(registers);
         sb.append('}');
         return sb.toString();
