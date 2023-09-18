@@ -6,8 +6,11 @@ package com.tecnicas;
 
 
 
+import com.tecnicas.control.Transaction;
 import com.tecnicas.model.CorrientAccount;
+import com.tecnicas.model.Register;
 import com.tecnicas.view.MainUserInterface;
+import java.util.Date;
 
 /**
  *
@@ -68,5 +71,12 @@ public class Bancadamia {
         primera.deposit(40000);
         System.out.println(primera);
         
+        Date date=new Date();
+        Register primeregistro=new Register(date,"medellin",Transaction.DEPOSIT, 4000, primera);
+        Register segundregistro=new Register(date,"medellin",Transaction.WITHDRAWAL, 8000, primera);
+        primera.saveRegister(primeregistro);
+        primera.saveRegister(segundregistro);
+        System.out.println(primera.getRegisters());
+         
     }
 }

@@ -55,6 +55,11 @@ public class Register {
         return account;
     }
 
+    @Override
+    public String toString() {
+        return "Register{" + "date=" + date + ", city=" + city + ", type=" + type + ", amount=" + amount + ", account=" + account + '}';
+    }
+
     
     
 }
