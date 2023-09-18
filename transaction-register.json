@@ -1,1 +1,1 @@
-{"date":"2023-09-18 00:01:02","city":"medellín","type":"DEPOSIT","amount":40000.0,"accountId":1}
+[{"id":1,"date":"2023-09-18 02:12:53","city":"medellín","type":"DEPOSIT","amount":40000.0,"accountId":1},{"id":2,"date":"2023-09-18 02:12:54","city":"medellín","type":"WITHDRAWAL","amount":60000.0,"accountId":1},{"id":3,"date":"2023-09-18 02:12:54","city":"medellín","type":"DEPOSIT","amount":40000.0,"accountId":1}]

@@ -5,10 +5,13 @@
 package com.tecnicas.help;
 
 import com.google.gson.Gson;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.lang.reflect.Type;
+
 /**
  *
  * @author xaraxx
@@ -23,5 +26,14 @@ public class PersistenceHelper {
             Logger.getLogger(PersistenceHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+     
+    public <T extends Object> T load(String fileName, Type classOfT){
+        try (FileReader reader = new FileReader(fileName)){
+            return gson.fromJson(reader, classOfT);
+        }catch (IOException ex) {
+            Logger.getLogger(PersistenceHelper.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BancadamiaException("Error cargando los datos", ex);
+        }
     }
 }

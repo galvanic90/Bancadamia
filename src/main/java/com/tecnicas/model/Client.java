@@ -23,8 +23,12 @@ public class Client extends Person {
     
     private void saveAccount( CorrientAccount account){
         this.accounts.add(account);
-        persistence.save(account, CORRIENT_ACCOUNT_FILE);
+        persistence.save(accounts, CORRIENT_ACCOUNT_FILE);
     }
+    
+    /*public void loadAccounts(){
+        this.accounts = persistence.load(CORRIENT_ACCOUNT_FILE), new TypeToken<ArrayList<CorrientAccount>>() {}.getType());
+    }*/
     
     public static int getID() {
         return ID;
