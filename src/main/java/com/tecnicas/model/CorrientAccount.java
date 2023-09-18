@@ -155,9 +155,20 @@ public class CorrientAccount {
 
     @Override
     public String toString() {
-        return "CorrientAccount{" + "balance=" + balance + ", maxAmountPerTrans=" + maxAmountPerTrans + ", overdraft=" + overdraft + ", transactions=" + transactions + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("CorrientAccount{");
+        sb.append("balance=").append(balance);
+        sb.append(", maxAmountPerTrans=").append(maxAmountPerTrans);
+        sb.append(", overdraft=").append(overdraft);
+        sb.append(", maxOverdraft=").append(maxOverdraft);
+        sb.append(", maxTransactions=").append(maxTransactions);
+        sb.append(", transactions=").append(transactions);
+        sb.append(", registers=").append(registers);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
+
     
     
 }
