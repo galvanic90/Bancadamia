@@ -2,28 +2,69 @@ package com.tecnicas;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
+import com.tecnicas.control.TypePerson;
 import com.tecnicas.help.PersistenceHelper;
 import com.tecnicas.model.Client;
 import com.tecnicas.model.CorrientAccount;
 import com.tecnicas.view.MainUserInterface;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author ricar
  */
 public class Bancadamia {
     
-    public ArrayList<Client> clients= new ArrayList();
+    public final ArrayList<Client> clients= new ArrayList();
     static final String CLIENT_FILE = "client.json";
     PersistenceHelper persistence = new PersistenceHelper();
+    
+    
     
     private void saveClient( Client client){
         this.clients.add(client);
         persistence.save(client, CLIENT_FILE);
     }
     
-    public static void main(String[] args) {
+    public void main(String[] args) {
+        String fullname;
+        float balance=0;
+        Scanner scanner = new Scanner(System.in);
+        
         MainUserInterface.mainUI();
+        do{
+            System.out.print("Introduzca su nombre completo: ");
+            fullname = scanner.nextLine();  
+        }while(fullname.equals(""));
+       
+        Client client = new Client(fullname, TypePerson.NATURAL);
+        saveClient(client);
+        
+        
+        do{
+            System.out.print("Introduzca el dinero con el cual quiere abrir su cuenta: ");
+            balance = scanner.nextFloat();  
+        }while(balance<=0);
+        
+        try {
+            CorrientAccount cuenta= new CorrientAccount(balance);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Bancadamia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        
+
+        
+        
+    
+        
+        
+        
+        
+        
         System.out.println("Se comprueba que ID este funcinando");
         System.out.println("La cantidad de instancias en la clase CorrientAccount es : "+CorrientAccount.getID());
         CorrientAccount primera= new CorrientAccount();
