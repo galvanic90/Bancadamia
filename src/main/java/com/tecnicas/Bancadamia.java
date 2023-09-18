@@ -76,7 +76,7 @@ public class Bancadamia {
         Register segundregistro=new Register(date,"medellin",Transaction.WITHDRAWAL, 8000, primera);
         primera.saveRegister(primeregistro);
         primera.saveRegister(segundregistro);
-        System.out.println(primera.getRegisters());
+    //    System.out.println(primera.getRegisters());
          
     }
 }
