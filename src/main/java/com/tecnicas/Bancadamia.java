@@ -1,20 +1,14 @@
 package com.tecnicas;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
-
-
 import com.tecnicas.model.CorrientAccount;
 import com.tecnicas.view.MainUserInterface;
-
 /**
  *
  * @author ricar
  */
 public class Bancadamia {
-    
     public static void main(String[] args) {
         MainUserInterface.mainUI();
         System.out.println("Se comprueba que ID este funcinando");
@@ -68,5 +62,8 @@ public class Bancadamia {
         primera.deposit(40000);
         System.out.println(primera);
         
+       
+        System.out.println(primera.getRegisters());
+         
     }
 }

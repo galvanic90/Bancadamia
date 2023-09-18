@@ -34,6 +34,18 @@ public class Person {
     public void setType(TypePerson type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Person{");
+        sb.append("fullName=").append(fullName);
+        sb.append(", type=").append(type);
+        sb.append('}');
+        return sb.toString();
+    }
+
+  
     
     
 }

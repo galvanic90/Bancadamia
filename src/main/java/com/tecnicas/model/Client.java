@@ -25,11 +25,18 @@ public class Client extends Person {
     public static void addClient() {
         Client.ID = ID+1;
     }
-    
+
     @Override
     public String toString() {
-        return "Client{" + "accounts=" + accounts + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Client{");
+        sb.append("accounts=").append(accounts);
+        sb.append('}');
+        return sb.toString();
     }
+    
+    
+   
     
     
 

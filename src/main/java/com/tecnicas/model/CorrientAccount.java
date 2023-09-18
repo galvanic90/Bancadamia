@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tecnicas.model;
+import com.tecnicas.control.Transaction;
 import com.tecnicas.control.Validator;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+
 /**
  *
  * @author ricar
@@ -18,7 +21,7 @@ public class CorrientAccount {
     private float maxOverdraft=this.overdraft;
     private int maxTransactions=3;
     private int transactions=0;
-    private ArrayList<Register> registers = new ArrayList();
+    private final ArrayList<Register> registers = new ArrayList();
 
     public CorrientAccount() {
         addAccount();
@@ -54,14 +57,32 @@ public class CorrientAccount {
         return false;
     }
     
+    private String dateToString(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = now.format(formatter);
+        
+        return formattedDate;
+    }
+    
     public void deposit(float amount){
+        
+        String date = dateToString();
+        
         if(Validator.isNoNegativo(amount)){
-            if (maxOverdraft>overdraft){
+            if(transaction()){
+                
+                Register register = new Register(date, "medellín", Transaction.DEPOSIT, amount,this.ID);
+                System.out.println(register);
+                this.saveRegister(register);
+                
+                if (maxOverdraft>overdraft){
                 amount-=(maxOverdraft-overdraft);
                 overdraft=maxOverdraft;
-            }
-            if(transaction()){
+                }
+                
                 this.balance+=amount;
+                
             }else{
                 System.out.println("Se han cumplido con las transacciones por dia");
             }
@@ -70,18 +91,28 @@ public class CorrientAccount {
         }
     }
     
+    
     public void withdrawal(float amount){
+        
+       String date = dateToString();
        if (Validator.isAbove(this.maxAmountPerTrans, amount) && Validator.isNoNegativo(amount)){
+           
            if (Validator.hasAmount(this.balance, amount)){
                 if(transaction()){
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.ID);
+                    this.saveRegister(register);
                     this.balance-=amount;
                 }else{
                     System.out.println("Se han cumplido con las transacciones por dia");
                 }
            } else if(Validator.hasAmount(this.balance+this.overdraft, amount)){
                 if (transaction()){
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.ID);
+                    System.out.println(register);
+                    this.saveRegister(register);
                     this.overdraft-=(amount-this.balance);
                     this.balance=0;
+                    
                 }else{
                     System.out.println("Se han cumplido con las transacciones por dia");
                 }
@@ -94,10 +125,18 @@ public class CorrientAccount {
        }
     }
 
-    private void saveRegister( String city){
-        //TODO implementar
+    //Deberia ser privada porque esto se define dentro de los
+    //metodos depositar y retirar
+    private void saveRegister( Register register){
+        this.registers.add(register);
     }
-
+    
+    //public ArrayList<Register> showRegisters(Date initialdate, Date finaldate){
+    //    for (Register registro : registers) {
+    //        registro.getDate().;
+    //    }
+    //} 
+    
     public float getMaxOverdraft() {
         return maxOverdraft;
     }
@@ -123,6 +162,7 @@ public class CorrientAccount {
     }
     
     public ArrayList<Register> getRegisters() {
+        System.out.println(registers);
         return registers;
     }
     
@@ -134,22 +174,46 @@ public class CorrientAccount {
     }*/
 
     public void setMaxAmountPerTrans(float maxAmountPerTrans) {
-        this.maxAmountPerTrans = maxAmountPerTrans;
+        if(Validator.isNoNegativo(maxAmountPerTrans)){
+            this.maxAmountPerTrans = maxAmountPerTrans;
+        }
+        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
     }
 
     public void setOverdraft(float overdraft) {
-        this.overdraft = overdraft;
+        if(Validator.isNoNegativo(overdraft)){
+            this.overdraft = overdraft;
+            
+            if(overdraft>maxOverdraft){
+                this.maxOverdraft=overdraft;
+            }
+        }
+        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
     }
 
     public void setMaxTransactions(int maxTransactions) {
-        this.maxTransactions = maxTransactions;
+        if (Validator.isNoNegativo(maxTransactions)){
+            this.maxTransactions = maxTransactions;
+        }
+        throw new IllegalArgumentException("Se introdujo un valor negativo al metodo.");
     }
 
     @Override
     public String toString() {
-        return "CorrientAccount{" + "balance=" + balance + ", maxAmountPerTrans=" + maxAmountPerTrans + ", overdraft=" + overdraft + ", transactions=" + transactions + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("CorrientAccount{");
+        sb.append("balance=").append(Float.toString(balance));
+        sb.append(", maxAmountPerTrans=").append(Float.toString(maxAmountPerTrans));
+        sb.append(", overdraft=").append(Float.toString(overdraft));
+        sb.append(", maxOverdraft=").append(Float.toString(maxOverdraft));
+        sb.append(", maxTransactions=").append(Integer.toString(maxTransactions));
+        sb.append(", transactions=").append(Integer.toString(transactions));
+        sb.append(", registers=").append(registers);
+        sb.append('}');
+        return sb.toString();
     }
-    
+
+
     
     
 }
