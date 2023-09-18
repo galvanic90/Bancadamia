@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class Bancadamia {
     
     public ArrayList<Client> clients= new ArrayList();
-    static final String CLIENT_FILE = "client.json";
+    static final String CLIENT_FILE = "clients.json";
     PersistenceHelper persistence = new PersistenceHelper();
     
     private void saveClient( Client client){
         this.clients.add(client);
-        persistence.save(client, CLIENT_FILE);
+        persistence.save(clients, CLIENT_FILE);
     }
     
     public static void main(String[] args) {
