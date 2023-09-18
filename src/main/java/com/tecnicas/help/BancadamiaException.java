@@ -8,6 +8,14 @@ package com.tecnicas.help;
  *
  * @author xaraxx
  */
-public class BancadamiaException {
+public class BancadamiaException extends RuntimeException {
+    
+    public BancadamiaException(String msg){
+        super(msg);
+    }
+    
+    public BancadamiaException(String message, Throwable cause){
+        super(message, cause);
+    }
     
 }

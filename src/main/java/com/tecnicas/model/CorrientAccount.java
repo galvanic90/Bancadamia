@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.tecnicas.model;
+import com.google.gson.reflect.TypeToken;
 import com.tecnicas.control.Transaction;
 import com.tecnicas.control.Validator;
 import com.tecnicas.help.PersistenceHelper;
@@ -149,6 +150,7 @@ public class CorrientAccount {
         persistence.save(registers, TRANSACTION_REGISTER_FILE);
     }
     
+
     //public ArrayList<Register> showRegisters(Date initialdate, Date finaldate){
     //    for (Register registro : registers) {
     //        registro.getDate().;
@@ -180,7 +182,13 @@ public class CorrientAccount {
     }
     
     public ArrayList<Register> getRegisters() {
+        registers = loadTransactionsRegistered();
         return registers;
+    }
+    
+        
+    private ArrayList<Register> loadTransactionsRegistered(){
+        return registers = persistence.load(TRANSACTION_REGISTER_FILE, new TypeToken<ArrayList<Register>>() {}.getType());
     }
     
     /*public Register getRegister(int id){
