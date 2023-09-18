@@ -2,13 +2,26 @@ package com.tecnicas;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
+import com.tecnicas.help.PersistenceHelper;
+import com.tecnicas.model.Client;
 import com.tecnicas.model.CorrientAccount;
 import com.tecnicas.view.MainUserInterface;
+import java.util.ArrayList;
 /**
  *
  * @author ricar
  */
 public class Bancadamia {
+    
+    public ArrayList<Client> clients= new ArrayList();
+    static final String CLIENT_FILE = "client.json";
+    PersistenceHelper persistence = new PersistenceHelper();
+    
+    private void saveClient( Client client){
+        this.clients.add(client);
+        persistence.save(client, CLIENT_FILE);
+    }
+    
     public static void main(String[] args) {
         MainUserInterface.mainUI();
         System.out.println("Se comprueba que ID este funcinando");
