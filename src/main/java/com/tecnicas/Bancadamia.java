@@ -19,7 +19,7 @@ public class Bancadamia {
         
         System.out.println("\nSe obtienen los datos iniciales de la instancia");
         System.out.println(primera);
-        
+       
         System.out.println("\nSe hace un deposito de 40000.");
         primera.deposit(40000);
         System.out.println(primera);

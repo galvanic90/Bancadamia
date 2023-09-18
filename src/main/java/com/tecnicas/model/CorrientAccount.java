@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class CorrientAccount {
     private static int ID=0;
+    private int id;
     private float balance=0;
     private float maxAmountPerTrans=500000;
     private float overdraft=50000;
@@ -25,13 +26,15 @@ public class CorrientAccount {
 
     public CorrientAccount() {
         addAccount();
+        this.id=ID;
     }
     
     public CorrientAccount(float balance) throws InstantiationException {
         
         if (Validator.isNoNegativo(balance)){
-            this.balance = balance;
             addAccount();
+            this.balance = balance;
+            this.id=ID;
         }
         
         throw new InstantiationException("Se intento inicializar una instancia con saldo negativo");
@@ -72,7 +75,7 @@ public class CorrientAccount {
         if(Validator.isNoNegativo(amount)){
             if(transaction()){
                 
-                Register register = new Register(date, "medellín", Transaction.DEPOSIT, amount,this.ID);
+                Register register = new Register(date, "medellín", Transaction.DEPOSIT, amount,this.id);
                 System.out.println(register);
                 this.saveRegister(register);
                 
@@ -99,7 +102,7 @@ public class CorrientAccount {
            
            if (Validator.hasAmount(this.balance, amount)){
                 if(transaction()){
-                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.ID);
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.id);
                     this.saveRegister(register);
                     this.balance-=amount;
                 }else{
@@ -107,7 +110,7 @@ public class CorrientAccount {
                 }
            } else if(Validator.hasAmount(this.balance+this.overdraft, amount)){
                 if (transaction()){
-                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.ID);
+                    Register register = new Register(date, "medellín", Transaction.WITHDRAWAL, amount,this.id);
                     System.out.println(register);
                     this.saveRegister(register);
                     this.overdraft-=(amount-this.balance);
