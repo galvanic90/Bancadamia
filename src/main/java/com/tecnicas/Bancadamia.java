@@ -15,6 +15,8 @@ import java.util.logging.Logger;
  */
 public class Bancadamia {
     public static void main(String[] args) {
+        
+        //Organizando problemas.
         String fullname;
         float balance=0;
         Scanner scanner = new Scanner(System.in);
@@ -36,6 +38,7 @@ public class Bancadamia {
         } catch (InstantiationException ex) {
             Logger.getLogger(Bancadamia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
 
         
