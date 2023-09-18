@@ -94,10 +94,18 @@ public class CorrientAccount {
        }
     }
 
-    private void saveRegister( String city){
-        //TODO implementar
+    //Deberia ser privada porque esto se define dentro de los
+    //metodos depositar y retirar
+    public void saveRegister( Register register){
+        this.registers.add(register);
     }
-
+    
+    //public ArrayList<Register> showRegisters(Date initialdate, Date finaldate){
+    //    for (Register registro : registers) {
+    //        registro.getDate().;
+    //    }
+    //} 
+    
     public float getMaxOverdraft() {
         return maxOverdraft;
     }
