@@ -5,6 +5,7 @@
 package com.tecnicas.model;
 import com.tecnicas.control.Transaction;
 import com.tecnicas.control.Validator;
+import com.tecnicas.help.PersistenceHelper;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  * @author ricar
  */
 public class CorrientAccount {
+    
     private static int ID=0;
     private float balance=0;
     private float maxAmountPerTrans=500000;
@@ -22,7 +24,13 @@ public class CorrientAccount {
     private int maxTransactions=3;
     private int transactions=0;
     private final ArrayList<Register> registers = new ArrayList();
-
+    
+    
+    static final String CORRIENT_ACCOUNT_FILE = "corrient-account.json";
+    static final String TRANSACTION_REGISTER_FILE = "transaction-register.json";
+    
+    PersistenceHelper persistence = new PersistenceHelper();
+    
     public CorrientAccount() {
         addAccount();
     }
@@ -44,6 +52,7 @@ public class CorrientAccount {
     public static int getID() {
         return ID;
     }
+    
     
     private boolean transaction(){
         if (maxTransactions>transactions){
@@ -129,6 +138,7 @@ public class CorrientAccount {
     //metodos depositar y retirar
     private void saveRegister( Register register){
         this.registers.add(register);
+        persistence.save(register, TRANSACTION_REGISTER_FILE);
     }
     
     //public ArrayList<Register> showRegisters(Date initialdate, Date finaldate){
@@ -162,7 +172,6 @@ public class CorrientAccount {
     }
     
     public ArrayList<Register> getRegisters() {
-        System.out.println(registers);
         return registers;
     }
     
